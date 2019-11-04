@@ -75,7 +75,7 @@ KEYCONTROL:										; some extra keyboard controls
 .n1:
 		cmpi.w	#"3",d0
 		bne.s	.n2
-		move.w	#-1,std(a5)		 	 	 	; KEY "3" -> set scroll direction to RIGHT
+		move.w	#-1,std(a5)		 	 	 		; KEY "3" -> set scroll direction to RIGHT
 .n2:
 		cmpi.w	#"4",d0
 		bne.s	.n3
@@ -86,9 +86,9 @@ KEYCONTROL:										; some extra keyboard controls
 		move.w	#0,sind(a5)						; KEY "5" -> disable sin animation 
 .n4:
 		cmpi.w	#"6",d0
-		bne.s	.n5
+		bne.s	.nothing
 		move.w	#-1,sind(a5)					; KEY "6" -> set sin animation to reverse 
-.n5:
+
 .nothing:
 
 		cmpi.w	#" ",d0							; SPACE to exit
