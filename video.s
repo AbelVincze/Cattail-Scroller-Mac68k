@@ -20,16 +20,16 @@ VIDEO_INIT:
 
 
 
-		movea.l	(a5),a0						; QuickDraw Globals A0-ba, tarolni felesleges
-		move.l	screenBits(a0),M_SCR+__baseAddr(a5)	; screen base addr
-		move.l	screenBits+6(a0),M_SCR+__rect(a5)			; topleft
+		movea.l	(a5),a0									; QuickDraw Globals A0-ba, tarolni felesleges
+		move.l	screenBits(a0),M_SCR+__baseAddr(a5)		; screen base addr
+		move.l	screenBits+6(a0),M_SCR+__rect(a5)		; topleft
 		move.l	screenBits+10(a0),M_SCR+__rect+4(a5)	; bottomright
-		move.w	screenBits+6+6(a0),d0						   	; calculate the resolution
-		sub.w	screenBits+6+2(a0),d0							; right-left
-		move.w	d0,M_SCR+__width(a5)		   			; Width in pixels
-		move.w	screenBits+6+4(a0),d0							; bottom-top
+		move.w	screenBits+6+6(a0),d0					; calculate the resolution
+		sub.w	screenBits+6+2(a0),d0					; right-left
+		move.w	d0,M_SCR+__width(a5)					; Width in pixels
+		move.w	screenBits+6+4(a0),d0					; bottom-top
 		sub.w	screenBits+6+0(a0),d0
-		move.w	d0,M_SCR+__height(a5)		  				; Height in pixels
+		move.w	d0,M_SCR+__height(a5)		  			; Height in pixels
 
 		subq.w	#$04,a7						; space for _GetMainDevice return value
 		dc.w	_GetMainDevice				; _GetMainDevice
