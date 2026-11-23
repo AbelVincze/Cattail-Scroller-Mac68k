@@ -1,0 +1,19 @@
+# Fantasm project for the host build: ~/dev/Mac68k_devtools/bin/fantasm build
+# Same settings as the Anvil project cattail_Prj; the output is build/cattail.
+name          = cattail
+type          = APPL
+creator       = MACC
+globals       = main.def
+sources       = main.s printf.s unpackx.s video.s render.s demo.s fontrot.s
+link_order    = alphabetical
+resources     = cattail.rsrc.json
+optimize      = quick short_branches
+format        = stub
+size          = flags=$0080 preferred=900K minimum=900K
+version       = 0.0.1
+stage         = dev
+release       = 0
+region        = 0
+short_version = v1
+long_version  = Cattail Scroller v1.0
+output        = build

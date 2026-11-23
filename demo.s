@@ -1,3 +1,4 @@
+
 		SECTION DEMO
 ;--------------------------------------------------------------------------------------
 
@@ -20,6 +21,8 @@ DEMO_INIT:
 DEMO_LOOP:
 	IFNE DEBUG_MODE
 ;		bsr.s	plotCoords			; elozo torlese
+		moveq	#0,d0
+		bsr		rastertime
 	ENDC
 
 		bsr		RENDER_CHARS		; Render buffer contents on the screen	
@@ -37,6 +40,9 @@ DEMO_LOOP:
 
 	IFNE DEBUG_MODE
 ;		bsr.s	plotCoords			; uj kirajzolasa
+		move.w	#$FFFF,d0
+		bsr		rastertime
+
 	ENDC
 
 		RTS____	"DEMO_LOOP"
@@ -219,8 +225,8 @@ sc1txt:		;          1         2         3         4         5         6
 				;0123456789012345678901234567890123456789012345678901234567890123
 		dc.b	"                     hello 2019 and welcome here @ tryagain with"
 		dc.b	" my funny cat-tail scroller... the text is just for checking how"
-		dc.b	" the fuck it looks like. ok we saw it, now restart but first the"
-		dc.b	" whole charset: @abcdefghijklmnopqrstuvwxyz0123456789",$27,$22,".,!"
+		dc.b	" the hell it looks like. ok we saw it, now restart but first the"
+		dc.b	" whole charset: @abcdefghijklmnopqrstuvwxyz0123456789'",$22,".,!"
 		dc.b	"?*                        "
 		align	2
 
@@ -1103,7 +1109,6 @@ chcopyshift_F:
 
 
 		global DEMO_INIT,DEMO_LOOP
-		extern drawresult2
+		extern drawresult2,rastertime
 		
 		extern getdoutba
->>>>>>> d22939fa28442acfe0a9425a3d30e3f5e7d51674

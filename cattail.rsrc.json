@@ -1,0 +1,15 @@
+{
+  "$schema": "file:///Users/macc/dev/Mac68k_devtools/schema/rsrc.schema.json",
+  "type": "rsrc",
+  "creator": "RSED",
+  "resources": [
+    {"type": "DATA", "id": 128, "name": "16x14_terminalfont_LR2.pkx", "file": "assets/rsrc/16x14_terminalfont_LR2.pkx"},
+    {"type": "DATA", "id": 129, "name": "apple_logo_96x93_LR12.pkx", "file": "assets/rsrc/apple_logo_96x93_LR12.pkx"},
+    {"type": "DATA", "id": 130, "name": "64x48_funnyscrollfont.pkx", "file": "assets/rsrc/64x48_funnyscrollfont.pkx"},
+    {"type": "DATA", "id": 131, "name": "rotTA_NR2.pkx", "file": "assets/rsrc/rotTA_NR2.pkx"},
+    {"type": "DATA", "id": 132, "name": "rotTRS.pkx", "file": "assets/rsrc/rotTRS.pkx"},
+    {"type": "DATA", "id": 133, "name": "rotTR_.pkx", "file": "assets/rsrc/rotTR_.pkx"},
+    {"type": "DATA", "id": 135, "name": "sin_sina_mul_dirs_NR2.pkx", "file": "assets/rsrc/sin_sina_mul_dirs_NR2.pkx"},
+    {"type": "DATA", "id": 134, "name": "distsc.pkx", "file": "assets/rsrc/distsc.pkx"}
+  ]
+}

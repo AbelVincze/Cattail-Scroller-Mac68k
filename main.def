@@ -38,24 +38,6 @@ directWindow:	 	 	globoff.l	1		; az alkalmazas mogotti ablak
 slotNumber:				globoff.w	1		; slotVBL-hez
 
 
-VBLData:							; mehetne talan az A5 worldbe is, ide csak 1 pointer kell
-VBLTask:		globoff.l	8		; csak hogy a forras lathato legyen reseditben
-	
-;VBLData:
-;VBLTask:
-; Offsets in VBLData and in VBLTask	
-qLink:			EQU	0	; long
-qType:			EQU	4	; word
-vblAddr:		EQU	6	; long
-vblCount:		EQU	10	; word
-vblPhase:		EQU	12	; word
-
-theTicks:		EQU	18	; word
-vsyncFlag:		EQU	20	; long
-VBLsync:		EQU	24	; word
-
-theA5:			EQU	14	; long
-savedA5:		EQU 26	; long
 
 
 

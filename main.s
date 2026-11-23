@@ -75,7 +75,7 @@ KEYCONTROL:										; some extra keyboard controls
 .n1:
 		cmpi.w	#"3",d0
 		bne.s	.n2
-		move.w	#-1,std(a5)		 	 	 		; KEY "3" -> set scroll direction to RIGHT
+		move.w	#-1,std(a5)		 	 	 	; KEY "3" -> set scroll direction to RIGHT
 .n2:
 		cmpi.w	#"4",d0
 		bne.s	.n3
@@ -86,9 +86,9 @@ KEYCONTROL:										; some extra keyboard controls
 		move.w	#0,sind(a5)						; KEY "5" -> disable sin animation 
 .n4:
 		cmpi.w	#"6",d0
-		bne.s	.nothing
+		bne.s	.n5
 		move.w	#-1,sind(a5)					; KEY "6" -> set sin animation to reverse 
-
+.n5:
 .nothing:
 
 		cmpi.w	#" ",d0							; SPACE to exit
@@ -131,7 +131,7 @@ LOAD_RSRCS:
 			move.l	#$5800,d0					; our unpack buffer which is reused later for other purposes
 												; this is why the size
 			dc.w	_Newptr						; allocate memory
-			bne.s	load_quit2	 	 			; exit on error
+			bne 	load_quit2	 	 			; exit on error
 			move.l	a0,BUFFER(a5)				; store in BUFFER pointer
 
 .rsrcloop:										; iterating over all the resources in order
@@ -159,7 +159,12 @@ LOAD_RSRCS:
 			bsr		UNPACK						; decompressing resource
 			move.l	a0,current_ptr(a5)			; a0 - points to the first byte after the decompressed data in memory
 			
-			; no way of releasing resources? didn't find it...
+			; releasing resources?
+			move.l	rsrc_handler(a5),-(sp)		; store handler
+			dc.w	_ReleaseResource				; close resource
+
+			
+			
 			lea		rsrcc(PC),a1		
 			addq	#1,(a1)						; incrementing the resource ID
 			cmp.w	#$88,(a1)					; check if we reached the end?

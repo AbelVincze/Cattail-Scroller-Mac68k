@@ -4,32 +4,36 @@
 
 
 ;--------------------------------------------------------------------------------------
+VBLData:							; mehetne talan az A5 worldbe is, ide csak 1 pointer kell
+VBLTask:		ds.l	8	 		; csak hogy a forras lathato legyen reseditben
+	
+;VBLData:
+;VBLTask:
+; Offsets in VBLData and in VBLTask	
+qLink:			EQU	0	; long
+qType:			EQU	4	; word
+vblAddr:		EQU	6	; long
+vblCount:		EQU	10	; word
+vblPhase:		EQU	12	; word
+
+theTicks:		EQU	18	; word
+vsyncFlag:		EQU	20	; long
+VBLsync:		EQU	24	; word
+
+theA5:			EQU	14	; long
+savedA5:		EQU 26	; long
 
 VIDEO_INIT:
-
-;	 	 DEBUG
-;	 	 move.l	M_SCR+__baseAddr(a5),d1
-;	 	 move.l	M_SCR+__rowBytes(a5),d1
-;	 	 move.l	M_SCR+__rect(a5),d1
-;	 	 move.l	M_SCR+__height(a5),d1
-;	 	 move.l	M_SCR+__width(a5),d1
-;	 	 move.l	M_SCR+__BW(a5),d1
-;	 	 move.l	M_SCR+__BWA(a5),d1
-;	 	 move.l	M_SCR(a5),d0
-
-
-
-
-		movea.l	(a5),a0									; QuickDraw Globals A0-ba, tarolni felesleges
-		move.l	screenBits(a0),M_SCR+__baseAddr(a5)		; screen base addr
-		move.l	screenBits+6(a0),M_SCR+__rect(a5)		; topleft
+		movea.l	(a5),a0						; QuickDraw Globals A0-ba, tarolni felesleges
+		move.l	screenBits(a0),M_SCR+__baseAddr(a5)	; screen base addr
+		move.l	screenBits+6(a0),M_SCR+__rect(a5)			; topleft
 		move.l	screenBits+10(a0),M_SCR+__rect+4(a5)	; bottomright
-		move.w	screenBits+6+6(a0),d0					; calculate the resolution
-		sub.w	screenBits+6+2(a0),d0					; right-left
-		move.w	d0,M_SCR+__width(a5)					; Width in pixels
-		move.w	screenBits+6+4(a0),d0					; bottom-top
+		move.w	screenBits+6+6(a0),d0						   	; calculate the resolution
+		sub.w	screenBits+6+2(a0),d0							; right-left
+		move.w	d0,M_SCR+__width(a5)		   			; Width in pixels
+		move.w	screenBits+6+4(a0),d0							; bottom-top
 		sub.w	screenBits+6+0(a0),d0
-		move.w	d0,M_SCR+__height(a5)		  			; Height in pixels
+		move.w	d0,M_SCR+__height(a5)		  				; Height in pixels
 
 		subq.w	#$04,a7						; space for _GetMainDevice return value
 		dc.w	_GetMainDevice				; _GetMainDevice
@@ -134,6 +138,22 @@ vloop1:
 		
 		rts
 
+rastertime:
+		
+		movea.l	M_SCR+__baseAddr(a5),a0
+		adda.w	#72,a0
+		
+		move.w 	M_SCR+__rowBytes(a5),d1
+		;lsl.w	d1
+		move.w	M_SCR+__height(a5),d2
+		;lsr.w	#1,d2
+		subq	#1,d2
+rloop0:
+		move.w	d0,(a0)
+		adda.w	d1,a0
+		dbra.s	d2,rloop0
+		
+		rts
 
 SetEntries:		equ		$aa3f
  	 
@@ -147,7 +167,6 @@ do_clut:
 		move.w	#0,-(sp)				*start at zero
 		move.w	#1,-(sp)				*255 entries
 		pea		colours(pc)				*push colours
-		;dc.w	_DEBUGGER
 		dc.w	SetEntries				*KABLAM!
 		rts
 
@@ -269,6 +288,7 @@ WAIT_VBL:
 		global VIDEO_INIT,VIDEO_DEINIT
 		global SLOTVBL_INIT,SLOTVBL_DEINIT
 		global WAIT_VBL,WAIT_NEXT_VBL
+		global rastertime
 		
 		; EXTERNAL LABELS
 		extern BEG,PROGRESS_UPDATE
