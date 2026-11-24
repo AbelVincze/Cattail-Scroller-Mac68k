@@ -21,3 +21,6 @@ fantasm run        # build, copy into the maccemu68k LC 475 and launch
 * `DEBUG_MODE` in `main.def` is 0. `fantasm build --set DEBUG_MODE=1` gives the debug
   build: the demo screen at the top left, a raster-time bar, and debug text that needs a
   screen at least 1024 pixels wide.
+
+
+The demo is 100 % human coded, only building it on the current macOS was made possible by Claude.
